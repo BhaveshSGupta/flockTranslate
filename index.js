@@ -37,7 +37,7 @@ flock.events.on('app.uninstall', function(event) {
 });
 
 // Start the listener after reading the port from config
-var port = (config.port || 8080 || process.env.PORT);
+var port = process.env.PORT;
 app.listen(port, function() {
     console.log('Listening on port: ' + port);
 });
