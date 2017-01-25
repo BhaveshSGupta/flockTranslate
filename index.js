@@ -68,7 +68,7 @@ trans.translate(params, function(err, edata) {
         if (!error) {
             console.log('uid for message: ' + response.uid);
         } else {
-            console.log('error sending message: ' + error.id);
+            console.log('error sending message: ' + event.chat+" "+event.userId);
         }
     });  
 });
