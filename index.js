@@ -23,11 +23,17 @@ try {
 } catch (e) {
     tokens = {};
 }
+var lang;
+try {
+    lang = require('./lang.json');
+} catch (e) {
+    lang = {};
+}
 
 // save tokens on app.install
 flock.events.on('app.install', function(event) {
     tokens[event.userId] = event.token;
-    tokens[event.userId][lang]='hi';
+    lang[event.userId]='hi';
 });
 
 // delete tokens on app.uninstall
@@ -81,5 +87,5 @@ getUserToken = function(userId) {
     return tokens[userId];
 }
 getUserTokenLan = function(userId) {
-    return tokens[userId][lang];
+    return lang[userId];
 }
