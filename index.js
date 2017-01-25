@@ -39,6 +39,7 @@ flock.events.on('app.install', function(event) {
 // delete tokens on app.uninstall
 flock.events.on('app.uninstall', function(event) {
     delete tokens[event.userId];
+    delete lang[event.userId];
 });
 
 // Start the listener after reading the port from config
@@ -52,8 +53,25 @@ process.on('SIGINT', process.exit);
 process.on('SIGTERM', process.exit);
 process.on('exit', function() {
     fs.writeFileSync('./tokens.json', JSON.stringify(tokens));
+    fs.writeFileSync('./lang.json', JSON.stringify(lang));
 });
 flock.events.on('client.slashCommand', function(event) {
+var firstword=(event.text).split(" ");
+if(firstword[0]==="changeLanguage"){
+firstword[1]
+   flock.callMethod('chat.sendMessage', 'a86b41e0-93a8-4db9-b4a8-6ea371704b75', {
+        to: event.userId,
+        text: "changeLanguage"
+    }, function(error, response) {
+        if (!error) {
+            console.log('error sending message: ' + event.chat+" "+event.userId+" "+getUserToken(event.userId));
+            console.log('uid for message: ' + response.uid);
+        } else {
+            console.log('error sending message: ' + event.chat+" "+event.userId+" "+getUserToken(event.userId));
+        }
+    }); 
+}
+else{
     var trans = new MsTranslator({api_key: "431e427ba582406e87ba31290c7bb8ad"}, true);
     var params = {
   text: event.text
@@ -80,6 +98,10 @@ trans.translate(params, function(err, edata) {
         }
     });  
 });
+
+}
+
+
 
 });
 
