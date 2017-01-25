@@ -27,6 +27,7 @@ try {
 // save tokens on app.install
 flock.events.on('app.install', function(event) {
     tokens[event.userId] = event.token;
+    tokens[event.userId][lang]='hi';
 });
 
 // delete tokens on app.uninstall
@@ -51,7 +52,7 @@ flock.events.on('client.slashCommand', function(event) {
     var params = {
   text: event.text
   , from: 'en'
-  , to: 'es'
+  , to: getUserTokenLan(event.userId)
 };
 trans.translate(params, function(err, edata) {
     data=''
@@ -78,4 +79,7 @@ trans.translate(params, function(err, edata) {
 
 getUserToken = function(userId) {
     return tokens[userId];
+}
+getUserTokenLan = function(userId) {
+    return tokens[userId][lang];
 }
