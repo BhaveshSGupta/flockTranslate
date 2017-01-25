@@ -47,15 +47,19 @@ process.on('exit', function() {
     fs.writeFileSync('./tokens.json', JSON.stringify(tokens));
 });
 flock.events.on('client.slashCommand', function(event) {
-  var trans = new MsTranslator({
-  api_key: "431e427ba582406e87ba31290c7bb8ad" // use this for the new token API. 
-}, true);
-     var params = {
+    var trans = new MsTranslator({api_key: "431e427ba582406e87ba31290c7bb8ad"}, true);
+    var params = {
   text: event.text
   , from: 'en'
   , to: 'es'
 };
 trans.translate(params, function(err, data) {
+    if(err){
+        data="errror";
+    }
+    else{
+        data=data;
+    }
     flock.callMethod('chat.sendMessage', getUserToken(event.userId), {
         to: event.chat,
         text: data
