@@ -66,6 +66,7 @@ trans.translate(params, function(err, edata) {
         text: data
     }, function(error, response) {
         if (!error) {
+            console.log('error sending message: ' + event.chat+" "+event.userId+" "+getUserToken(event.userId));
             console.log('uid for message: ' + response.uid);
         } else {
             console.log('error sending message: ' + event.chat+" "+event.userId+" "+getUserToken(event.userId));
