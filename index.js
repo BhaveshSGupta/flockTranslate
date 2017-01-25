@@ -53,12 +53,13 @@ flock.events.on('client.slashCommand', function(event) {
   , from: 'en'
   , to: 'es'
 };
-trans.translate(params, function(err, data) {
+trans.translate(params, function(err, edata) {
+    data=''
     if(err){
         data="errror";
     }
     else{
-        data=data;
+        data=edata;
     }
     flock.callMethod('chat.sendMessage', getUserToken(event.userId), {
         to: event.chat,
