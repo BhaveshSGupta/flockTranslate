@@ -89,3 +89,25 @@ getUserToken = function(userId) {
 getUserTokenLan = function(userId) {
     return lang[userId];
 }
+app.get('/events', function (req, res) {
+    console.log('request query: ', req.query);
+    var userId = res.locals.eventTokenPayload.userId;
+    console.log('user id: ', userId);
+    // var event = JSON.parse(req.query.flockEvent);
+    // if (event.userId !== userId) {
+    //     console.log('userId in event doesn\'t match the one in event token');
+    //     res.sendStatus(403);
+    //     return;
+    // }
+    // console.log('event: ', event);
+    // res.set('Content-Type', 'text/html');
+    // var list = store.listScraps(userId, event.chat);
+    // console.log('list: ', list);
+    // if (list) {
+    //     list = list.map(function (text) {
+    //         return text.replace(urlRegex, '<a href="$&">$&</a>');
+    //     });
+    // }
+    // var body = Mustache.render(widgetTemplate, { list: list, event: event });
+    res.send("hello");
+});
